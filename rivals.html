@@ -49,7 +49,13 @@
       <!-- Killstreak Banner Announcement -->
       <div id="streak-banner">DOUBLE KILL!</div>
 
-      <!-- Bottom Player Vitals & Ammo -->
+      <!-- Sniper Scope Overlay -->
+      <div id="sniper-scope">
+        <div class="scope-crosshair-h"></div>
+        <div class="scope-crosshair-v"></div>
+      </div>
+
+      <!-- Bottom Player Vitals, Weapon Loadout & Ammo -->
       <div id="bottom-hud">
         <div class="vital-bars">
           <div class="bar-row">
@@ -68,10 +74,26 @@
           </div>
         </div>
 
+        <!-- 3-Slot Weapon Inventory Hotbar -->
+        <div id="weapon-hotbar">
+          <div class="weapon-slot active" id="slot-1" data-slot="1">
+            <span class="slot-num">[1]</span>
+            <span class="slot-name">⚡ RIFLE</span>
+          </div>
+          <div class="weapon-slot" id="slot-2" data-slot="2">
+            <span class="slot-num">[2]</span>
+            <span class="slot-name">💥 SHOTGUN</span>
+          </div>
+          <div class="weapon-slot" id="slot-3" data-slot="3">
+            <span class="slot-num">[3]</span>
+            <span class="slot-name">🗡️ KATANA</span>
+          </div>
+        </div>
+
         <div class="ammo-display">
-          <span id="ammo-current" class="ammo-current">24</span>
+          <span id="ammo-current" class="ammo-current">30</span>
           <span class="ammo-slash">/</span>
-          <span id="ammo-max" class="ammo-max">24</span>
+          <span id="ammo-max" class="ammo-max">30</span>
         </div>
       </div>
 
@@ -82,27 +104,27 @@
       <div id="overlay" class="active">
         <div class="modal-card">
           <h1 class="rivals-title">ARENA RIVALS</h1>
-          <p class="rivals-subtitle">Fast-Paced Blocky Duel FPS (Roblox Rivals Style)</p>
+          <p class="rivals-subtitle">Massive 120m Arena · 3-Weapon Arsenal · Advanced Bot AI</p>
 
           <div class="controls-box">
             <div class="ctrl-item">
-              <span>Mouse Look</span>
-              <span class="ctrl-key">Aim (Pointer Lock)</span>
+              <span>Mouse Look & Shoot</span>
+              <span class="ctrl-key">Aim + Left Click</span>
             </div>
             <div class="ctrl-item">
-              <span>Move & Strafe</span>
-              <span class="ctrl-key">W A S D</span>
+              <span>Aim Down Sights / Zoom</span>
+              <span class="ctrl-key">Right Click</span>
             </div>
             <div class="ctrl-item">
-              <span>Fire Blaster</span>
-              <span class="ctrl-key">Left Click</span>
+              <span>Switch Weapon Class</span>
+              <span class="ctrl-key">1 (Rifle) / 2 (Shotgun) / 3 (Katana)</span>
             </div>
             <div class="ctrl-item">
-              <span>Jump (or Jump Pads)</span>
-              <span class="ctrl-key">Space</span>
+              <span>Movement & Jump</span>
+              <span class="ctrl-key">W A S D + Space</span>
             </div>
             <div class="ctrl-item">
-              <span>Reload Blaster</span>
+              <span>Reload Weapon</span>
               <span class="ctrl-key">R</span>
             </div>
           </div>
