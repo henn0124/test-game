@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>3D Frogger Arcade</title>
+    <link rel="stylesheet" href="./src/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="game-container">
+      <canvas id="webgl-canvas"></canvas>
+
+      <!-- Arcade Top HUD -->
+      <header id="hud">
+        <div class="hud-item">
+          <span class="hud-label">1-UP SCORE</span>
+          <span id="score-display" class="hud-value">00000</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">HIGH SCORE</span>
+          <span id="high-score-display" class="hud-value">00000</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">STAGE</span>
+          <span id="level-display" class="hud-value">1</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">LIVES</span>
+          <div id="lives-container">
+            <span class="life-icon">🐸</span>
+            <span class="life-icon">🐸</span>
+            <span class="life-icon">🐸</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Time Limit Gauge at Bottom of Screen -->
+      <div id="time-gauge-container">
+        <span class="time-label">TIME</span>
+        <div id="time-bar-bg">
+          <div id="time-bar-fill"></div>
+        </div>
+      </div>
+
+      <!-- Start / Game Over Screen Overlay -->
+      <div id="overlay" class="active">
+        <div class="modal-card">
+          <h1 id="overlay-title" class="pixel-title">FROGGER 3D</h1>
+          <p id="overlay-subtitle">Hop across the highway and navigate the river to safe lily pads!</p>
+          
+          <div class="controls-guide">
+            <div class="control-row">
+              <span class="key-badge">W / ↑</span>
+              <span class="key-badge">A / ←</span>
+              <span class="key-badge">S / ↓</span>
+              <span class="key-badge">D / →</span>
+              <span class="guide-text">Hop in 4 Directions</span>
+            </div>
+            <div class="control-row">
+              <span class="key-badge">SPACE</span>
+              <span class="guide-text">Toggle Camera View (Follow / Bird's Eye)</span>
+            </div>
+          </div>
+
+          <div id="final-stats" class="hidden">
+            <p>FINAL SCORE: <span id="final-score">0</span></p>
+            <p id="new-high-badge" class="badge hidden">🎉 NEW HIGH SCORE! 🎉</p>
+          </div>
+
+          <button id="start-btn" class="arcade-btn">START GAME</button>
+        </div>
+      </div>
+
+      <!-- Mobile Touch Controls -->
+      <div id="mobile-controls">
+        <div class="dpad">
+          <button class="dpad-btn up" id="dpad-up" aria-label="Up">▲</button>
+          <div class="dpad-middle">
+            <button class="dpad-btn left" id="dpad-left" aria-label="Left">◀</button>
+            <div class="dpad-center"></div>
+            <button class="dpad-btn right" id="dpad-right" aria-label="Right">▶</button>
+          </div>
+          <button class="dpad-btn down" id="dpad-down" aria-label="Down">▼</button>
+        </div>
+        <button id="cam-toggle-btn" class="touch-action-btn">📷</button>
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
