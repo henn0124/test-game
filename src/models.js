@@ -1,4 +1,10 @@
 import * as THREE from 'three';
+import lebronImgUrl from './assets/lebron.jpg';
+
+// Texture Loader for LeBron James
+const textureLoader = new THREE.TextureLoader();
+const lebronTexture = textureLoader.load(lebronImgUrl);
+lebronTexture.colorSpace = THREE.SRGBColorSpace;
 
 // Material Palette
 const materials = {
@@ -34,7 +40,10 @@ const materials = {
   playerSkin: new THREE.MeshLambertMaterial({ color: 0x52b788 }),
   playerEyeWhite: new THREE.MeshLambertMaterial({ color: 0xffffff }),
   playerEyePupil: new THREE.MeshLambertMaterial({ color: 0x111827 }),
-  playerTail: new THREE.MeshLambertMaterial({ color: 0x40916c })
+  playerTail: new THREE.MeshLambertMaterial({ color: 0x40916c }),
+  lebronFace: new THREE.MeshBasicMaterial({ map: lebronTexture }),
+  lakersGold: new THREE.MeshLambertMaterial({ color: 0xfdb927 }),
+  lakersPurple: new THREE.MeshLambertMaterial({ color: 0x552583 })
 };
 
 /**
@@ -306,56 +315,53 @@ export function createLog(length = 3) {
 }
 
 /**
- * Floating Turtles (single turtle)
+ * Floating LeBron James Platform (replacing single turtle)
  */
 export function createSingleTurtle() {
   const group = new THREE.Group();
 
-  // Shell
-  const shellGeo = new THREE.SphereGeometry(0.42, 8, 6);
-  shellGeo.scale(1, 0.45, 1.2);
-  const shell = new THREE.Mesh(shellGeo, materials.turtleShell);
-  shell.position.y = 0.1;
-  shell.castShadow = true;
-  group.add(shell);
+  // Floating raft base (Lakers gold cylinder disc)
+  const baseGeo = new THREE.CylinderGeometry(0.55, 0.52, 0.14, 24);
+  const base = new THREE.Mesh(baseGeo, materials.lakersGold);
+  base.position.y = 0.04;
+  base.castShadow = true;
+  group.add(base);
 
-  // Head
-  const headGeo = new THREE.SphereGeometry(0.16, 8, 6);
-  const head = new THREE.Mesh(headGeo, materials.turtleSkin);
-  head.position.set(0, 0.1, -0.55);
-  group.add(head);
+  // Lakers purple accent ring border
+  const ringGeo = new THREE.TorusGeometry(0.54, 0.045, 8, 24);
+  ringGeo.rotateX(Math.PI / 2);
+  const ring = new THREE.Mesh(ringGeo, materials.lakersPurple);
+  ring.position.y = 0.11;
+  group.add(ring);
 
-  // Flippers
-  const flipperGeo = new THREE.BoxGeometry(0.18, 0.06, 0.28);
-  const fl1 = new THREE.Mesh(flipperGeo, materials.turtleSkin);
-  fl1.position.set(-0.4, 0.04, -0.2);
-  const fl2 = new THREE.Mesh(flipperGeo, materials.turtleSkin);
-  fl2.position.set(0.4, 0.04, -0.2);
-  const fl3 = new THREE.Mesh(flipperGeo, materials.turtleSkin);
-  fl3.position.set(-0.4, 0.04, 0.3);
-  const fl4 = new THREE.Mesh(flipperGeo, materials.turtleSkin);
-  fl4.position.set(0.4, 0.04, 0.3);
-  group.add(fl1, fl2, fl3, fl4);
+  // LeBron James Photo Disc (flat facing directly up towards the camera)
+  const photoGeo = new THREE.CircleGeometry(0.51, 24);
+  photoGeo.rotateX(-Math.PI / 2);
+  const photo = new THREE.Mesh(photoGeo, materials.lebronFace);
+  photo.position.y = 0.115;
+  group.add(photo);
 
   return group;
 }
 
 /**
- * Group of floating turtles (2 or 3 in line)
+ * Group of floating LeBron James pictures (2 or 3 in line)
  */
 export function createTurtleGroup(count = 3) {
   const group = new THREE.Group();
-  const spacing = 1.1;
-  const startZ = -((count - 1) * spacing) / 2;
+  group.userData.noGroupRotate = true;
+  const spacing = 1.15;
+  const startX = -((count - 1) * spacing) / 2;
 
   for (let i = 0; i < count; i++) {
-    const turtle = createSingleTurtle();
-    turtle.position.z = startZ + i * spacing;
-    group.add(turtle);
+    const lebron = createSingleTurtle();
+    lebron.position.x = startX + i * spacing;
+    group.add(lebron);
   }
 
   return group;
 }
+
 
 /**
  * Lily pad with optional goal frog or water lily flower

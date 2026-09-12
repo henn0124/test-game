@@ -282,9 +282,13 @@ export class FroggerGame {
         if (lane.type === 'road') {
           mesh.rotation.y = lane.speed > 0 ? -Math.PI / 2 : Math.PI / 2;
         } else {
-          // Logs & turtles: align length along X axis
-          mesh.rotation.y = lane.speed > 0 ? 0 : Math.PI;
-          mesh.rotation.y += Math.PI / 2;
+          // Logs & floating platforms: align length along X axis
+          if (mesh.userData.noGroupRotate) {
+            mesh.rotation.y = 0;
+          } else {
+            mesh.rotation.y = lane.speed > 0 ? 0 : Math.PI;
+            mesh.rotation.y += Math.PI / 2;
+          }
         }
 
         this.entityGroup.add(mesh);
