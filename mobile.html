@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Turtle 3D" />
+    <meta name="theme-color" content="#0d1117" />
+    <title>Turtle Crossing 3D - Mobile Edition</title>
+    <link rel="stylesheet" href="./src/style.css" />
+    <link rel="stylesheet" href="./src/mobile.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
+  </head>
+  <body class="mobile-body">
+    <div id="game-container" class="mobile-container">
+      <canvas id="webgl-canvas"></canvas>
+
+      <!-- iPhone Top Safe Area HUD -->
+      <header id="mobile-hud">
+        <div class="mobile-hud-top">
+          <div class="hud-stat">
+            <span class="hud-stat-label">SCORE</span>
+            <span id="score-display" class="hud-stat-val">00000</span>
+          </div>
+          <div class="hud-stat">
+            <span class="hud-stat-label">STAGE</span>
+            <span id="level-display" class="hud-stat-val">1</span>
+          </div>
+          <div class="hud-stat">
+            <span class="hud-stat-label">LIVES</span>
+            <div id="lives-container" class="mobile-lives">
+              <span class="life-icon">🐢</span>
+              <span class="life-icon">🐢</span>
+              <span class="life-icon">🐢</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Integrated Compact Time Gauge -->
+        <div class="mobile-timer-row">
+          <span class="timer-tag">TIME</span>
+          <div class="mobile-time-bar">
+            <div id="time-bar-fill"></div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Overlay for Start / Game Over -->
+      <div id="overlay" class="active">
+        <div class="modal-card mobile-modal">
+          <div class="turtle-badge">🐢</div>
+          <h1 id="overlay-title" class="pixel-title">TURTLE 3D</h1>
+          <p id="overlay-subtitle">Cross the highway & river to reach safety!</p>
+          
+          <div class="mobile-instructions">
+            <p>📱 <b>Swipe</b> or use <b>Thumb Buttons</b> to hop</p>
+            <p>💡 Add to Home Screen for fullscreen app view</p>
+          </div>
+
+          <div id="final-stats" class="hidden">
+            <p>FINAL SCORE: <span id="final-score">0</span></p>
+            <p id="new-high-badge" class="badge hidden">🎉 NEW HIGH SCORE! 🎉</p>
+          </div>
+
+          <button id="start-btn" class="arcade-btn mobile-start-btn">TAP TO HOP</button>
+
+          <a href="./index.html" class="desktop-switch-link">Switch to Desktop Version</a>
+        </div>
+      </div>
+
+      <!-- Bottom Ergonomic Thumb Controls for iPhone -->
+      <div id="mobile-gamepad">
+        <div class="mobile-dpad">
+          <button class="gamepad-btn btn-up" id="btn-up" aria-label="Hop Forward">▲</button>
+          <div class="dpad-horiz">
+            <button class="gamepad-btn btn-left" id="btn-left" aria-label="Hop Left">◀</button>
+            <button class="gamepad-btn btn-cam" id="btn-cam" aria-label="Toggle Camera">📷</button>
+            <button class="gamepad-btn btn-right" id="btn-right" aria-label="Hop Right">▶</button>
+          </div>
+          <button class="gamepad-btn btn-down" id="btn-down" aria-label="Hop Backward">▼</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/mobile.js"></script>
+  </body>
+</html>
