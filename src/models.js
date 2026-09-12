@@ -27,65 +27,131 @@ const materials = {
   flowerCenter: new THREE.MeshLambertMaterial({ color: 0xfacc15 }),
   treeTrunk: new THREE.MeshLambertMaterial({ color: 0x78350f }),
   leaves: new THREE.MeshLambertMaterial({ color: 0x15803d }),
-  leavesLight: new THREE.MeshLambertMaterial({ color: 0x16a34a })
+  leavesLight: new THREE.MeshLambertMaterial({ color: 0x16a34a }),
+  playerShell: new THREE.MeshLambertMaterial({ color: 0x1b4332 }),
+  playerShellPlate: new THREE.MeshLambertMaterial({ color: 0x2d6a4f }),
+  playerPlastron: new THREE.MeshLambertMaterial({ color: 0xfef08a }),
+  playerSkin: new THREE.MeshLambertMaterial({ color: 0x52b788 }),
+  playerEyeWhite: new THREE.MeshLambertMaterial({ color: 0xffffff }),
+  playerEyePupil: new THREE.MeshLambertMaterial({ color: 0x111827 }),
+  playerTail: new THREE.MeshLambertMaterial({ color: 0x40916c })
 };
 
 /**
- * Procedural Frog Model
+ * Procedural Player Turtle Model
  */
-export function createFrog() {
+export function createPlayerTurtle() {
   const group = new THREE.Group();
 
-  // Body
-  const bodyGeo = new THREE.BoxGeometry(0.7, 0.45, 0.75);
-  const body = new THREE.Mesh(bodyGeo, materials.frogSkin);
-  body.position.y = 0.28;
-  body.castShadow = true;
-  group.add(body);
+  // 1. Carapace (Top Shell Dome)
+  const shellGeo = new THREE.SphereGeometry(0.48, 14, 10);
+  shellGeo.scale(1.0, 0.55, 1.25);
+  const shell = new THREE.Mesh(shellGeo, materials.playerShell);
+  shell.position.y = 0.28;
+  shell.castShadow = true;
+  group.add(shell);
 
-  // Underbelly
-  const bellyGeo = new THREE.BoxGeometry(0.6, 0.1, 0.65);
-  const belly = new THREE.Mesh(bellyGeo, materials.frogBelly);
+  // Shell Rim / Ridge
+  const rimGeo = new THREE.TorusGeometry(0.49, 0.05, 8, 20);
+  rimGeo.rotateX(Math.PI / 2);
+  rimGeo.scale(1.0, 1.25, 0.8);
+  const rim = new THREE.Mesh(rimGeo, materials.playerShellPlate);
+  rim.position.y = 0.16;
+  rim.castShadow = true;
+  group.add(rim);
+
+  // Shell Scute Plates (hexagonal / decorative plates on back)
+  const platePositions = [
+    [0, 0.44, 0],
+    [0, 0.41, -0.28],
+    [0, 0.41, 0.28],
+    [-0.22, 0.36, -0.12],
+    [0.22, 0.36, -0.12],
+    [-0.22, 0.36, 0.14],
+    [0.22, 0.36, 0.14]
+  ];
+
+  platePositions.forEach(([x, y, z]) => {
+    const plateGeo = new THREE.CylinderGeometry(0.11, 0.13, 0.04, 6);
+    const plate = new THREE.Mesh(plateGeo, materials.playerShellPlate);
+    plate.position.set(x, y, z);
+    plate.rotation.y = Math.PI / 6;
+    group.add(plate);
+  });
+
+  // 2. Plastron (Under-belly shell)
+  const bellyGeo = new THREE.BoxGeometry(0.68, 0.08, 0.95);
+  const belly = new THREE.Mesh(bellyGeo, materials.playerPlastron);
   belly.position.set(0, 0.12, 0);
   group.add(belly);
 
+  // 3. Head & Snout
+  const headGroup = new THREE.Group();
+  const headGeo = new THREE.SphereGeometry(0.18, 12, 10);
+  headGeo.scale(1, 0.8, 1.2);
+  const head = new THREE.Mesh(headGeo, materials.playerSkin);
+  head.position.set(0, 0.25, -0.62);
+  head.castShadow = true;
+  headGroup.add(head);
+
   // Eyes
-  const eyeGeo = new THREE.SphereGeometry(0.14, 12, 12);
-  const pupilGeo = new THREE.SphereGeometry(0.07, 10, 10);
+  const eyeGeo = new THREE.SphereGeometry(0.065, 8, 8);
+  const pupilGeo = new THREE.SphereGeometry(0.038, 8, 8);
 
-  // Left Eye
-  const leftEye = new THREE.Mesh(eyeGeo, materials.frogEyeWhite);
-  leftEye.position.set(-0.24, 0.52, -0.22);
-  const leftPupil = new THREE.Mesh(pupilGeo, materials.frogPupil);
-  leftPupil.position.set(-0.24, 0.54, -0.32);
-  group.add(leftEye, leftPupil);
+  const leftEye = new THREE.Mesh(eyeGeo, materials.playerEyeWhite);
+  leftEye.position.set(-0.13, 0.31, -0.68);
+  const leftPupil = new THREE.Mesh(pupilGeo, materials.playerEyePupil);
+  leftPupil.position.set(-0.14, 0.32, -0.73);
 
-  // Right Eye
-  const rightEye = new THREE.Mesh(eyeGeo, materials.frogEyeWhite);
-  rightEye.position.set(0.24, 0.52, -0.22);
-  const rightPupil = new THREE.Mesh(pupilGeo, materials.frogPupil);
-  rightPupil.position.set(0.24, 0.54, -0.32);
-  group.add(rightEye, rightPupil);
+  const rightEye = new THREE.Mesh(eyeGeo, materials.playerEyeWhite);
+  rightEye.position.set(0.13, 0.31, -0.68);
+  const rightPupil = new THREE.Mesh(pupilGeo, materials.playerEyePupil);
+  rightPupil.position.set(0.14, 0.32, -0.73);
 
-  // Front legs
-  const legGeo = new THREE.BoxGeometry(0.16, 0.14, 0.28);
-  const leftFrontLeg = new THREE.Mesh(legGeo, materials.frogSkin);
-  leftFrontLeg.position.set(-0.36, 0.12, -0.2);
-  const rightFrontLeg = new THREE.Mesh(legGeo, materials.frogSkin);
-  rightFrontLeg.position.set(0.36, 0.12, -0.2);
-  group.add(leftFrontLeg, rightFrontLeg);
+  headGroup.add(leftEye, leftPupil, rightEye, rightPupil);
+  group.add(headGroup);
 
-  // Back legs (folded, ready to hop)
-  const backLegGeo = new THREE.BoxGeometry(0.22, 0.22, 0.38);
-  const leftBackLeg = new THREE.Mesh(backLegGeo, materials.frogSkin);
-  leftBackLeg.position.set(-0.4, 0.16, 0.22);
-  const rightBackLeg = new THREE.Mesh(backLegGeo, materials.frogSkin);
-  rightBackLeg.position.set(0.4, 0.16, 0.22);
-  group.add(leftBackLeg, rightBackLeg);
+  // 4. Flippers / Legs
+  const legGeo = new THREE.BoxGeometry(0.2, 0.09, 0.32);
+
+  // Front Flippers (angled outwards)
+  const flFrontLeft = new THREE.Mesh(legGeo, materials.playerSkin);
+  flFrontLeft.position.set(-0.42, 0.13, -0.32);
+  flFrontLeft.rotation.y = -Math.PI / 4;
+
+  const flFrontRight = new THREE.Mesh(legGeo, materials.playerSkin);
+  flFrontRight.position.set(0.42, 0.13, -0.32);
+  flFrontRight.rotation.y = Math.PI / 4;
+
+  // Back Flippers
+  const flBackLeft = new THREE.Mesh(legGeo, materials.playerSkin);
+  flBackLeft.position.set(-0.38, 0.12, 0.36);
+  flBackLeft.rotation.y = Math.PI / 6;
+
+  const flBackRight = new THREE.Mesh(legGeo, materials.playerSkin);
+  flBackRight.position.set(0.38, 0.12, 0.36);
+  flBackRight.rotation.y = -Math.PI / 6;
+
+  group.add(flFrontLeft, flFrontRight, flBackLeft, flBackRight);
+
+  // 5. Tail
+  const tailGeo = new THREE.ConeGeometry(0.08, 0.22, 6);
+  tailGeo.rotateX(-Math.PI / 2);
+  const tail = new THREE.Mesh(tailGeo, materials.playerTail);
+  tail.position.set(0, 0.14, 0.65);
+  group.add(tail);
 
   group.castShadow = true;
   return group;
 }
+
+/**
+ * Procedural Frog Model (kept for compatibility)
+ */
+export function createFrog() {
+  return createPlayerTurtle();
+}
+
 
 /**
  * Creates 4 wheels for standard vehicles

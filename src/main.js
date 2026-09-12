@@ -78,7 +78,7 @@ function updateUI() {
   for (let i = 0; i < game.lives; i++) {
     const span = document.createElement('span');
     span.className = 'life-icon';
-    span.textContent = '🐸';
+    span.textContent = '🐢';
     livesContainer.appendChild(span);
   }
 

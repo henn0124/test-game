@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { sound } from './audio.js';
 import {
-  createFrog,
+  createPlayerTurtle,
   createSedan,
   createTruck,
   createRaceCar,
@@ -297,7 +297,7 @@ export class FroggerGame {
     if (this.frogMesh) {
       this.scene.remove(this.frogMesh);
     }
-    this.frogMesh = createFrog();
+    this.frogMesh = createPlayerTurtle();
     this.scene.add(this.frogMesh);
     this.resetFrogPosition();
   }
@@ -322,13 +322,13 @@ export class FroggerGame {
       this.environmentGroup.add(pad);
       goal.pad = pad;
 
-      // Miniature goal frog (visible when occupied)
-      const miniFrog = createFrog();
-      miniFrog.scale.set(0.65, 0.65, 0.65);
-      miniFrog.position.set(goal.x, 0, -STEP_Z * ROW_GOAL);
-      miniFrog.visible = false;
-      this.environmentGroup.add(miniFrog);
-      goal.marker = miniFrog;
+      // Miniature goal turtle (visible when occupied)
+      const miniTurtle = createPlayerTurtle();
+      miniTurtle.scale.set(0.65, 0.65, 0.65);
+      miniTurtle.position.set(goal.x, 0, -STEP_Z * ROW_GOAL);
+      miniTurtle.visible = false;
+      this.environmentGroup.add(miniTurtle);
+      goal.marker = miniTurtle;
     });
   }
 
