@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Arena Rivals 3D - Roblox FPS Duel</title>
+    <link rel="stylesheet" href="./src/rivals/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="game-container">
+      <canvas id="webgl-canvas"></canvas>
+
+      <!-- Center Dynamic Reticle & Hitmarker -->
+      <div id="crosshair-container">
+        <div class="reticle-dot"></div>
+        <div class="reticle-line line-top"></div>
+        <div class="reticle-line line-bottom"></div>
+        <div class="reticle-line line-left"></div>
+        <div class="reticle-line line-right"></div>
+      </div>
+      <div id="hitmarker"></div>
+
+      <!-- Damage Red Screen Flash -->
+      <div id="damage-vignette"></div>
+
+      <!-- Top Scoreboard & Kill Feed -->
+      <header id="top-hud">
+        <div class="hud-score-board">
+          <div class="score-cell">
+            <span class="score-title">KILLS</span>
+            <span id="kills-display" class="score-num">0</span>
+          </div>
+          <div class="score-cell">
+            <span class="score-title">STREAK</span>
+            <span id="streak-display" class="score-num" style="color: #facc15;">0</span>
+          </div>
+          <div class="score-cell">
+            <span class="score-title">SCORE</span>
+            <span id="score-display" class="score-num" style="color: #38bdf8;">0000</span>
+          </div>
+        </div>
+
+        <div id="kill-feed"></div>
+      </header>
+
+      <!-- Killstreak Banner Announcement -->
+      <div id="streak-banner">DOUBLE KILL!</div>
+
+      <!-- Bottom Player Vitals & Ammo -->
+      <div id="bottom-hud">
+        <div class="vital-bars">
+          <div class="bar-row">
+            <span class="bar-tag hp">HP</span>
+            <div class="bar-bg">
+              <div id="hp-bar-fill" class="bar-fill hp-fill"></div>
+            </div>
+            <span id="hp-value" class="bar-val">100</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-tag sh">SH</span>
+            <div class="bar-bg">
+              <div id="sh-bar-fill" class="bar-fill sh-fill"></div>
+            </div>
+            <span id="sh-value" class="bar-val">50</span>
+          </div>
+        </div>
+
+        <div class="ammo-display">
+          <span id="ammo-current" class="ammo-current">24</span>
+          <span class="ammo-slash">/</span>
+          <span id="ammo-max" class="ammo-max">24</span>
+        </div>
+      </div>
+
+      <!-- Floating 3D Damage Text Container -->
+      <div id="damage-container"></div>
+
+      <!-- Start / Pause / Game Over Modal -->
+      <div id="overlay" class="active">
+        <div class="modal-card">
+          <h1 class="rivals-title">ARENA RIVALS</h1>
+          <p class="rivals-subtitle">Fast-Paced Blocky Duel FPS (Roblox Rivals Style)</p>
+
+          <div class="controls-box">
+            <div class="ctrl-item">
+              <span>Mouse Look</span>
+              <span class="ctrl-key">Aim (Pointer Lock)</span>
+            </div>
+            <div class="ctrl-item">
+              <span>Move & Strafe</span>
+              <span class="ctrl-key">W A S D</span>
+            </div>
+            <div class="ctrl-item">
+              <span>Fire Blaster</span>
+              <span class="ctrl-key">Left Click</span>
+            </div>
+            <div class="ctrl-item">
+              <span>Jump (or Jump Pads)</span>
+              <span class="ctrl-key">Space</span>
+            </div>
+            <div class="ctrl-item">
+              <span>Reload Blaster</span>
+              <span class="ctrl-key">R</span>
+            </div>
+          </div>
+
+          <button id="play-btn" class="play-btn">LOCK MOUSE & PLAY</button>
+
+          <div>
+            <a href="./index.html" class="mode-link">Back to Frogger & Turtle Crossing</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Touch Controls -->
+      <div id="mobile-ui">
+        <div id="joystick-zone">
+          <div id="joystick-knob"></div>
+        </div>
+        <div id="mobile-buttons">
+          <button id="m-btn-shoot" class="m-action-btn btn-shoot">🔥</button>
+          <button id="m-btn-jump" class="m-action-btn btn-jump">▲</button>
+          <button id="m-btn-reload" class="m-action-btn btn-reload">🔄</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/rivals/main.js"></script>
+  </body>
+</html>
